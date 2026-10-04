@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@keyframes successGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4), 0 0 35px rgba(16, 185, 129, 0.2);
+    border-color: #10b981;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.8), 0 0 50px rgba(16, 185, 129, 0.45);
+    border-color: #34d399;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes errorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-6px);
+  }
+  40%, 80% {
+    transform: translateX(6px);
+  }
+}
+
+.animate-success-glow {
+  animation: successGlow 1.6s infinite ease-in-out;
+}
+
+.animate-error-shake {
+  animation: errorShake 0.4s ease-in-out;
+}

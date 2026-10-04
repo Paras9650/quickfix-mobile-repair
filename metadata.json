@@ -1,0 +1,6 @@
+{
+  "name": "QuickFix Doorstep Mobile Repair - Hinglish AI Assistant",
+  "description": "Book a doorstep smartphone repair technician at home with our polite, friendly Hinglish AI assistant. Real-time diagnosis, transparent pricing, and instant booking confirmation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
