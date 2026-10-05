@@ -1,21 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickFix Doorstep Mobile Repair - Hinglish AI Assistant</title>
-    <meta name="description" content="Book a doorstep smartphone repair technician at home with our polite, friendly Hinglish AI assistant. Real-time diagnosis, transparent pricing, and instant booking confirmation." />
-    <meta property="og:title" content="QuickFix Doorstep Mobile Repair - Hinglish AI Assistant" />
-    <meta property="og:description" content="Book a doorstep smartphone repair technician at home with our polite, friendly Hinglish AI assistant. Real-time diagnosis, transparent pricing, and instant booking confirmation." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    <style>
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
 
+    <!-- Header Portal -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="bg-cyan-500 text-slate-950 p-2 rounded-xl font-black text-xl tracking-wider shadow-lg shadow-cyan-500/20">QF</div>
+            <div>
+                <h1 class="font-bold text-lg tracking-tight">QuickFix <span class="text-cyan-400 font-medium text-sm border border-cyan-500/30 px-1.5 py-0.5 rounded-md ml-1 bg-cyan-950/40">Hinglish AI</span></h1>
+                <p class="text-xs text-slate-400 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 block animate-pulse"></span> Doorstep Mobile Repair • 30 Mins Live Fix</p>
+            </div>
+        </div>
+        
+        <!-- Portal Switcher -->
+        <div class="bg-slate-900 p-1 rounded-xl border border-slate-800 flex gap-1 text-sm font-medium">
+            <button onclick="switchTab('customer')" id="tab-customer" class="px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 shadow transition-all">Customer App</button>
+            <button onclick="switchTab('technician')" id="tab-technician" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">Technician Job</button>
+            <button onclick="switchTab('admin')" id="tab-admin" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">Admin Panel</button>
+        </div>
+    </header>
+
+    <!-- Main Views Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- View 1: Customer App Portal -->
+        <section id="view-customer" class="lg:col-span-2 flex flex-col bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl min-h-[550px]">
+            <!-- Chat Header -->
+            <div class="bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-cyan-400">🤖</div>
+                    <div>
+                        <h3 class="font-semibold text-sm">QuickFix Sahayak</h3>
+                        <p class="text-xs text-emerald-400">Online</p>
+                    </div>
+                </div>
+                <button onclick="restartChat()" class="text-xs bg-slate-800 hover:bg-slate-700 px-2.5 py-1.5 rounded-lg text-slate-300 font-medium transition-all">Restart</button>
+            </div>
+
+            <!-- Chat Logs Output Screen -->
+            <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 max-h-[400px]">
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-sm shadow">🛠️</div>
+                    <div class="bg-slate-900 text-slate-200 rounded-2xl rounded-tl-none px-4 py-3 max-w-[85%] text-sm shadow-md border border-slate-800/60 leading-relaxed">
+                        Namaste ji! 🙏 Welcome to QuickFix Doorstep Mobile Repair. Main aapka personal repair assistant hoon.<br><br>Aapko kaunse smartphone brand aur model ka repair karwana hai? (e.g., iPhone 14, Redmi Note 13, Samsung S23)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Form Box -->
+            <div class="p-3 bg-slate-900/50 border-t border-slate-800/80 flex gap-2">
+                <input type="text" id="chat-input" onkeypress="handleKeyPress(event)" placeholder="Aapka sawal ya phone model likhein..." class="flex-1 bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-cyan-500 transition-all text-slate-100 placeholder:text-slate-500">
+                <button onclick="sendMessage()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-md shadow-cyan-500/10 active:scale-95">Send</button>
+            </div>
+        </section>
+
+        <!-- Sidebar Dashboard Component -->
+        <aside class="space-y-6">
+            <!-- Dynamic Job Sheet Card -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                <h3 class="font-bold text-sm tracking-wide text-slate-400 uppercase mb-3 flex items-center gap-2">📋 Live Doorstep Job Sheet</h3>
+                <div class="space-y-3 text-sm">
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center"><span class="text-slate-400">Device Model</span><span id="sheet-model" class="font-semibold text-slate-300">Not selected</span></div>
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center"><span class="text-slate-400">Issue Diagnosis</span><span id="sheet-issue" class="font-semibold text-slate-300">Pending chat...</span></div>
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center"><span class="text-slate-400">Dynamic Cost Estimate</span><span id="sheet-cost" class="font-bold text-cyan-400">₹0</span></div>
+                    <div class="bg-slate-900/60 border border-slate-800/80 p-3 rounded-xl flex justify-between items-center"><span class="text-slate-400">Pincode Status</span><span id="sheet-pin" class="font-semibold text-slate-300">—</span></div>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
+                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500">🛡️ QuickFix Doorstep Promise</h4>
+                <ul class="text-xs space-y-2 text-slate-400">
+                    <li class="flex items-center gap-2 text-slate-300">⚡ <span class="font-medium text-slate-200">30-Minute Fix:</span> Repaired right in front of you.</li>
+                    <li class="flex items-center gap-2 text-slate-300">🔒 <span class="font-medium text-slate-200">100% Data Safe:</span> No phone handover or reset.</li>
+                    <li class="flex items-center gap-2 text-slate-300">✅ <span class="font-medium text-slate-200">6-Month Warranty:</span> Genuine OEM certified parts.</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- View 2: Technician Tracking (Initially Hidden) -->
+        <section id="view-technician" class="hidden lg:col-span-3 bg-slate-950 rounded-2xl border border-slate-800 p-6 shadow-2xl">
+            <div class="max-w-xl mx-auto border border-slate-800 bg-slate-900/40 rounded-xl p-5 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div>
+                        <h3 class="font-bold text-lg text-cyan-400">Technician Fleet App</h3>
+                        <p class="text-xs text-slate-400">Telemetry Engine: ON</p>
+                    </div>
+                    <span class="bg-emerald-950 text-emerald-400 text-xs px-2.5 py-1 font-semibold rounded-full border border-emerald-500/20">🔒 Active Session</span>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 space-y-2.5 text-sm">
+                    <p class="text-slate-400">Assigned Driver: <span class="text-slate-200 font-semibold">Rahul Kumar</span></p>
+                    <p class="text-slate-400">Telemetry Status: <span class="text-emerald-400 font-semibold">✅ No Fake GPS Detected (±2.4m)</span></p>
+                    <p class="text-slate-400">Current Distance to Delivery: <span id="tech-distance" class="text-cyan-400 font-bold">450 meters</span></p>
+                </div>
+                <button onclick="simulateGPSMove()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-xl text-sm transition-all shadow-md shadow-cyan-500/10">Simulate GPS Travel - Move 100m Closer</button>
+            </div>
+        </section>
+
+        <!-- View 3: Admin Dashboard Control Panel (Initially Hidden) -->
+        <section id="view-admin" class="hidden lg:col-span-3 bg-slate-950 rounded-2xl border border-slate-800 p-6 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-100">Admin Control Center</h2>
+                    <p class="text-xs text-slate-400">Live operational ledger logs status manager</p>
+                </div>
+                <div class="text-right"><span class="text-xs text-slate-400">Total Database Bookings:</span><p class="text-lg font-bold text-cyan-400">4 Active</p></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- SVG Mock Radar Map -->
+                <div class="border border-slate-800 bg-slate-900 rounded-xl p-4 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
